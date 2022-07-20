@@ -27,8 +27,20 @@ const blogSchema = mongoose.Schema({
 })
 const Blog = mongoose.model("Blog", blogSchema)
 
-//Restful Routes
 
+//Restful Routes
+app.get("/", (req, res)=>{
+    res.redirect("/blogs")
+})
+
+app.get("/blogs", async(req, res)=>{
+    try {
+        const allBlogs = await Blog.find({})
+        res.render("index", { allBlogs })
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 
 app.listen(port, ()=>{
