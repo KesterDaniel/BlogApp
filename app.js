@@ -96,6 +96,18 @@ app.put("/blogs/:id", async(req, res)=>{
     }
 })
 
+//DESTROY ROUTE
+app.delete("/blogs/:id", async(req, res)=>{
+    const condemnedId = req.params.id
+    try {
+        await Blog.findByIdAndDelete(condemnedId)
+        res.redirect("/blogs")
+        console.log("Blog deleted")
+    } catch (error) {
+        console.log("couldnt perform action")
+    }
+})
+
 app.listen(port, ()=>{
     console.log("Blogapp is up!!")
 })

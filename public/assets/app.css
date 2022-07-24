@@ -6,5 +6,8 @@ i.icon, i.icons {
     margin-top: 7.0em;
 }
 
-
+form {
+    display: inline;
+    margin-top: 0em;
+}
 
