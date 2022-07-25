@@ -1,13 +1,36 @@
 <%- include ("partials/header") %>
 
-<h1>Index route</h1>
+<div class="ui main text container">
+    <div class="ui huge header">CodeRag</div>
+    <div class="ui top attached segment">
+        <div class="ui divided items">
+            <% allBlogs.forEach((blog)=>{ %>
+                <div class="item">
+                    <div class="image">
+                        <img src="<%= blog.image %>">
+                    </div>
+                    <div class="content">
+                        <a class="header" href="/blogs/<%= blog._id %>"><%= blog.title %></a>
+                        <div class="meta">
+                            <span><%= blog.created.toDateString() %></span>
+                        </div>
+                        <div class="description">
+                            <p><%- blog.body.substring(0, 100) %>...</p>
+                        </div>
+                        <div class="extra">
+                            <a class="ui floated basic violet button" href="/blogs/<%= blog._id %>">
+                                Read More
+                                <i class="right chevron icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
 
-<% allBlogs.forEach((blog)=>{ %>
-    <h1><%= blog.title %></h1>
-    <img src="<%= blog.image %>">
-    <span><%= blog.created %></span>
-    <p><%= blog.body.substring(0, 100) %>...</p>
-    <a href="/blogs/<%= blog._id %>">Read More</a>
-<% }) %>
+
+
 
 <%- include("partials/footer") %>

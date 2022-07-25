@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js -e js,ejs",
+    "dev": "env-cmd ./config/dev.env nodemon app.js -e js,ejs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kester Daniel",
@@ -14,8 +14,12 @@
     "body-parser": "^1.20.0",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
+    "express-sanitizer": "^1.0.6",
     "method-override": "^3.0.0",
     "mongoose": "^6.4.5",
     "nodemon": "^2.0.19"
+  },
+  "devDependencies": {
+    "env-cmd": "^8.0.2"
   }
 }

@@ -2,19 +2,21 @@ const express = require ("express")
 const bodyParser = require("body-parser")
 const methodOverride = require("method-override")
 const mongoose = require("mongoose")
-const port = process.env.PORT || 3000
+const expressSanitizer = require("express-sanitizer")
+const port = process.env.PORT 
 const app = express()
 
 
 //App Config
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(expressSanitizer())
 app.use(express.static("public"))
 app.use(methodOverride("_method"))
 
 
 //Mongoose/Model Config
-mongoose.connect("mongodb://127.0.0.1:27017/BlogApp", {
+mongoose.connect(process.env.MONGODB_URL, {
     useUnifiedTopology: true
 })
 
@@ -52,6 +54,7 @@ app.get("/blogs/new", (req, res)=>{
 
 //CREATE ROUTE
 app.post("/blogs", async(req, res)=>{
+    req.body.blog.body = req.sanitize(req.body.blog.body)
     const Blogdata = req.body.blog
     try {
          await Blog.create(Blogdata)
@@ -86,6 +89,7 @@ app.get("/blogs/:id/edit", async(req, res)=>{
 //UPDATE ROUTE
 app.put("/blogs/:id", async(req, res)=>{
     const risenId = req.params.id
+    req.body.blog.body = req.sanitize(req.body.blog.body)
     const newdata = req.body.blog
     try {
         await Blog.findByIdAndUpdate(risenId, newdata)
